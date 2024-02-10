@@ -18,18 +18,19 @@ class ISS:
             print(f"Error fetching ISS position: {e}")
             return None, None
 
-    def get_iss_country_currently_above(self):
+    def find_place_iss_currently_above_and_write_into_txt_file(self):
         latitude, longitude = self._get_iss_current_position()
         if latitude is not None and longitude is not None:
             address = self.geolocator.reverse((latitude, longitude))
             if address is not None:
-                return address
+                with open('iss_currently_above.txt', 'w') as file:
+                    file.write(address + '\n')
             else:
                 return "Unable to determine ISS location."
         else:
             return "Unable to determine ISS location."
 
-    def create_map_iss_currently_above(self):
+    def create_map_and_mark_place_where_iss_currently_above(self):
         latitude, longitude = self._get_iss_current_position()
         if latitude is not None and longitude is not None:
             folium_map_object = folium.Map(location=[latitude, longitude], zoom_start=6)
@@ -40,12 +41,16 @@ class ISS:
             return "Unable to create map due to missing ISS location."
 
     @staticmethod
-    def get_current_people_in_space():
+    def create_current_people_in_space_txt_file():
         try:
             response = requests.get(url="http://api.open-notify.org/astros.json")
             response.raise_for_status()
             data_json = response.json()
-            return [people["name"] for people in data_json["people"]]
+            list_of_people = [people["name"] for people in data_json["people"]]
+            with open('people_in_space.txt', 'w') as file:
+                for name in list_of_people:
+                    file.write(name + '\n')
+            return "file saved as people_in_space.txt"
         except requests.RequestException as e:
             print(f"Error fetching people in space: {e}")
             return []
