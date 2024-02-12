@@ -31,12 +31,12 @@ class ISSSpy:
 
     def write_iss_position_to_txt_file(self, name_of_txt_file):
         try:
-            FileWriter.write_to_file(self.find_place_iss_currently_above(), name_of_txt_file)
+            FileWriter.write_to_file(self.find_place_iss_currently_above(), f"{name_of_txt_file}.txt")
         except Exception as e:
-            logging.error(f"Error writing ISS position to {name_of_txt_file}: {e}")
+            logging.error(f"Error writing ISS position to {name_of_txt_file}.txt: {e}")
 
     def write_people_in_space_into_txt_file(self, name_of_txt_file):
         try:
-            FileWriter.write_to_file(self.api_client.get_current_people_in_space(), name_of_txt_file)
+            FileWriter.write_to_file(self.api_client.get_current_people_in_space(), f"{name_of_txt_file}.txt")
         except Exception as e:
-            logging.error(f"Error writing people in space to {name_of_txt_file}: {e}")
+            logging.error(f"Error writing people in space to {name_of_txt_file}.txt: {e}")
