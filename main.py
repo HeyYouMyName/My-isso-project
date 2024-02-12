@@ -1,12 +1,14 @@
-from iss import ISS
+from iss_spy import ISSSpy
 
 
 def main():
-    iss_tracker = ISS()
-    print(iss_tracker.find_place_iss_currently_above_and_write_into_txt_file())
-    print(iss_tracker.create_map_and_mark_place_where_iss_currently_above())
-    print(iss_tracker.create_current_people_in_space_txt_file())
+    iss_spy = ISSSpy()
+
+    print(iss_spy.create_map_and_mark_place_where_iss_currently_above("your_map"))
+    print(iss_spy.write_iss_position_to_txt_file("iss_position"))
+    print(iss_spy.write_people_in_space_into_txt_file("people_in_space"))
 
 
 if __name__ == "__main__":
     main()
+    
